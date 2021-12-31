@@ -70,7 +70,13 @@ const LearnerSignUp = () => {
                 className="d-block w-100 my-2 py-2"
                 type="text"
                 placeholder="Address"
-                {...register("Address", { required: true })}
+                {...register("address", { required: true })}
+              />
+              <input
+                className="d-block w-100 my-2 py-2"
+                type="number"
+                placeholder="Phone no."
+                {...register("phone", { required: true })}
               />
               <input
                 className="d-block w-100 my-2 py-2"
@@ -102,20 +108,24 @@ const LearnerSignUp = () => {
                 className="d-block w-100 my-2 py-2"
                 type="password"
                 placeholder="Password"
+                autoComplete="on"
                 {...register("password", { required: true })}
               />
               <input
                 className="d-block w-100 my-2 py-2"
                 type="password"
                 placeholder="Confirm password"
+                autoComplete="on"
                 {...register("confirmPassWord", { required: true })}
               />
               {error && <p className="text-danger fw-bold">{error}</p>}
-              <input
+              <button
                 className="d-inline px-5 my-2 text-uppercase bg-dark text-white py-2 border-0 rounded
                 "
                 type="submit"
-              />
+              >
+                Sign Up
+              </button>
             </div>
           </div>
         </form>

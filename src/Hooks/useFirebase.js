@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from "firebase/auth";
@@ -11,7 +12,7 @@ import { useEffect, useState } from "react";
 firebaseAuthentication();
 const auth = getAuth();
 const useFirebase = () => {
-  const [users, setUsers] = useState(null);
+  const [user, setuser] = useState(null);
   const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,16 +22,35 @@ const useFirebase = () => {
       const userInfo = result.user;
       updateProfile(auth.currentUser, {
         displayName: name,
-        photoURL: profile,
+        photoURL: profile.startsWith("https")
+          ? profile
+          : "https://i.ibb.co/SJQMSqC/profile.png",
       })
         .then(() => {})
         .catch((error) => {
           const errorMessage = error.message;
           setErrors(errorMessage);
         });
-      setUsers(userInfo);
+      setuser(userInfo);
       setIsLoading(false);
     });
+  };
+
+  // user manually sign in-
+  const manuallySignIn = (email, password, from, history) => {
+    setIsLoading(true);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        const userInfo = result.user;
+        setuser(userInfo);
+        setIsLoading(false);
+        // history.push(from);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setErrors(errorMessage);
+        setIsLoading(false);
+      });
   };
 
   // obserbing redering---
@@ -38,10 +58,10 @@ const useFirebase = () => {
     setIsLoading(true);
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUsers(user);
+        setuser(user);
         setIsLoading(false);
       } else {
-        setUsers(null);
+        setuser(null);
         setIsLoading(false);
       }
     });
@@ -60,12 +80,12 @@ const useFirebase = () => {
       });
   };
 
-  console.log(users);
   return {
-    users,
+    user,
     isLoading,
     errors,
     manuallySignUp,
+    manuallySignIn,
     logOut,
   };
 };
