@@ -1,9 +1,19 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import useFirebase from "../../../Hooks/useFirebase";
 
 const RiderSignUp = () => {
-  const { register, handleSubmit, watch } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { register, handleSubmit, reset } = useForm();
+  const { manuallySignUp } = useFirebase();
+  const onSubmit = (data) => {
+    manuallySignUp(
+      data.email,
+      data.confirmPassWord,
+      data.fullName,
+      data.profileUrl
+    );
+    reset();
+  };
   // console.log(watch("example"));
 
   return (
