@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import useFirebase from "../../../Hooks/useFirebase";
 
 const RiderSignUp = () => {
   const { register, handleSubmit, reset } = useForm();
   const { manuallySignUp } = useFirebase();
+  const [error, setError] = useState("");
+  // const [isLoaded, setIsLoaded] = useState(false);
+
   const onSubmit = (data) => {
+    data.role = "Rider";
+    if (data.password !== data.confirmPassWord) {
+      setError("Password dosen't matched!");
+      return;
+    }
+    const details = data;
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(details),
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result))
+      .catch((error) => console.log(error));
+    // console.log(data);
     manuallySignUp(
       data.email,
       data.confirmPassWord,
@@ -20,7 +41,7 @@ const RiderSignUp = () => {
     <>
       <div className="container">
         <div className="mb-5">
-          <h1 className="text-center my-2 text-uppercase">Sign Up</h1>
+          <h1 className="text-center my-2 text-uppercase">Sign Up For Rider</h1>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
@@ -40,7 +61,7 @@ const RiderSignUp = () => {
               <input
                 className="d-block w-100 my-2 py-2"
                 type="number"
-                placeholder="You Age"
+                placeholder="Your Age"
                 {...register("age", { required: true })}
               />
               <input
@@ -70,7 +91,6 @@ const RiderSignUp = () => {
             </div>
             <div className="col-md-6 col-12">
               <label className="h5 text-uppercase">Car Information</label>
-
               <input
                 className="d-block w-100 my-2 py-1"
                 type="text"
@@ -103,6 +123,7 @@ const RiderSignUp = () => {
                   <option value="bicycle">Bicycle</option>
                 </select>
               </div>
+              <label className="h5 mb-0 text-uppercase">Password</label>
               <input
                 className="d-block w-100 my-2 py-2"
                 type="password"
@@ -115,6 +136,7 @@ const RiderSignUp = () => {
                 placeholder="Confirm password"
                 {...register("confirmPassWord", { required: true })}
               />
+              {error && <p className="text-danger fw-bold">{error}</p>}
               <input
                 className="d-inline px-5 my-2 text-uppercase bg-dark text-white py-2 border-0 rounded
                 "
