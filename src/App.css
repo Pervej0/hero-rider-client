@@ -2,3 +2,7 @@
   font-family: "Italianno", cursive;
   font-size: 3rem;
 }
+
+.nav-link {
+  font-weight: 500;
+}
