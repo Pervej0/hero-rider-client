@@ -11,7 +11,11 @@ const MakeAdmin = () => {
       },
     })
       .then((res) => res.json())
-      .then((result) => console.log(result))
+      .then((result) => {
+        if (result.acknowledged) {
+          alert("Successfully admin created");
+        }
+      })
       .catch((error) => console.log(error));
     reset();
   };

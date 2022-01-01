@@ -44,7 +44,7 @@ const RiderSignUp = () => {
 
   return (
     <>
-      <div className="container">
+      <div className="container my-5">
         <div className="mb-5">
           <h1 className="text-center my-2 text-uppercase">Sign Up For Rider</h1>
         </div>

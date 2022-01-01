@@ -1,21 +1,7 @@
-import {
-  faBan,
-  faLock,
-  faUnlock,
-  faUserSlash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLock, faUnlock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Container,
-  OverlayTrigger,
-  Spinner,
-  Table,
-  Tooltip,
-} from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import useAuth from "../../../Hooks/useAuth";
+import { Container, Spinner, Table } from "react-bootstrap";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -42,10 +28,8 @@ const Users = () => {
         return item.phone === searchData || item.phone.includes(searchData);
       }
     });
-
-    setShowData(filteredItem);
-    console.log(filteredItem, searchData);
     setSearchData("");
+    setShowData(filteredItem);
   };
 
   // filter by age-
@@ -75,11 +59,11 @@ const Users = () => {
     fetch("http://localhost:5000/users")
       .then((res) => res.json())
       .then((data) => {
-        setShowData(data);
         setUsers(data);
+        setShowData(data);
       })
       .catch((error) => console.log(error));
-  }, [showData]);
+  }, []);
 
   const handleBlock = (event, status) => {
     const email =
@@ -103,6 +87,11 @@ const Users = () => {
         .then((result) => {
           if (result.acknowledged) {
             setIsLoading(false);
+            if (status === "block") {
+              alert("User successfully blocked");
+            } else {
+              alert("user successfully unbloked");
+            }
           }
         })
         .catch((error) => console.log(error));
@@ -125,7 +114,7 @@ const Users = () => {
                 placeholder="Search here"
               />
               <button
-                onBlur={handleSearch}
+                onClick={handleSearch}
                 className="py-2 px-4 border border-left-0"
               >
                 Search
@@ -159,7 +148,7 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {showData?.map((item, index) => (
+            {showData.map((item, index) => (
               <tr key={item._id}>
                 <td>{index + 1}</td>
                 <td>{item.fullName}</td>
