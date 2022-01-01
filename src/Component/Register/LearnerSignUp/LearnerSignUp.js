@@ -19,7 +19,7 @@ const LearnerSignUp = () => {
       return;
     }
     const details = data;
-    fetch("http://localhost:5000/users", {
+    fetch("https://pacific-beach-91181.herokuapp.com/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

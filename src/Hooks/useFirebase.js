@@ -87,7 +87,7 @@ const useFirebase = () => {
 
   // check user admin or not
   useEffect(() => {
-    fetch(`http://localhost:5000/admin/${user?.email}`)
+    fetch(`https://pacific-beach-91181.herokuapp.com/admin/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         setIsAdmin(data.admin);

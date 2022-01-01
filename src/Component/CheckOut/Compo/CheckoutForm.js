@@ -11,7 +11,7 @@ const CheckoutForm = ({ paymentDetails }) => {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://pacific-beach-91181.herokuapp.com/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

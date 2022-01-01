@@ -56,7 +56,7 @@ const Users = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/users")
+    fetch("https://pacific-beach-91181.herokuapp.com/users")
       .then((res) => res.json())
       .then((data) => {
         setUsers(data);
@@ -78,7 +78,7 @@ const Users = () => {
     );
     if (confirmation) {
       setIsLoading(true);
-      fetch("http://localhost:5000/users", {
+      fetch("https://pacific-beach-91181.herokuapp.com/users", {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(data),

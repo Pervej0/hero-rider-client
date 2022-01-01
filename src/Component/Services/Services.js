@@ -7,7 +7,7 @@ const Services = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:5000/services")
+    fetch("https://pacific-beach-91181.herokuapp.com/services")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);

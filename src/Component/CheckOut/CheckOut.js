@@ -14,7 +14,7 @@ const CheckOut = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services/${id}`)
+    fetch(`https://pacific-beach-91181.herokuapp.com/services/${id}`)
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
