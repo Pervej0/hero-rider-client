@@ -13,7 +13,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="container">
+    <section className="container py-3" style={{ minHeight: "80vh" }}>
       <div className="mb-5">
         <h1 className="text-center my-2 text-uppercase">Sign in</h1>
       </div>
@@ -57,7 +57,7 @@ const SignIn = () => {
           <h3>image herrer</h3>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -90,10 +90,10 @@ const useFirebase = () => {
     fetch(`http://localhost:5000/admin/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setIsAdmin(data.admin);
       });
   }, [user]);
+
   return {
     user,
     isLoading,

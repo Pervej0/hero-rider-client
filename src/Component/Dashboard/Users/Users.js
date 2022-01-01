@@ -1,10 +1,16 @@
-import { faBan, faUserSlash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBan,
+  faLock,
+  faUnlock,
+  faUserSlash,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import {
   Button,
   Container,
   OverlayTrigger,
+  Spinner,
   Table,
   Tooltip,
 } from "react-bootstrap";
@@ -15,7 +21,7 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [showData, setShowData] = useState([]);
   const [searchData, setSearchData] = useState("");
-  const { user } = useAuth();
+  const [loading, setIsLoading] = useState(false);
 
   // search input-
   const handleSearch = () => {
@@ -73,22 +79,32 @@ const Users = () => {
         setUsers(data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [showData]);
 
-  const handleBlock = (status) => {
-    const data = { email: user.email, status };
-    console.log(data);
+  const handleBlock = (event, status) => {
+    const email =
+      event.target.parentNode.parentNode.parentNode.parentNode.children[2]
+        .innerText;
+    if (!email) {
+      return;
+    }
+    const data = { email, status };
     const confirmation = window.confirm(
       "Are you sure want to block this user?"
     );
     if (confirmation) {
+      setIsLoading(true);
       fetch("http://localhost:5000/users", {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(data),
       })
         .then((res) => res.json())
-        .then((result) => console.log(result))
+        .then((result) => {
+          if (result.acknowledged) {
+            setIsLoading(false);
+          }
+        })
         .catch((error) => console.log(error));
     } else {
       return;
@@ -116,6 +132,7 @@ const Users = () => {
               </button>
             </label>
           </div>
+          {loading && <Spinner animation="border" />}
           <div className="mt-5">
             <label className="me-3 fw-bold text-uppercase">Filter by age</label>
             <select className="py-1 px-4" onChange={handleSelect}>
@@ -151,17 +168,27 @@ const Users = () => {
                 <td>{item.age}</td>
                 <td>{item.role}</td>
                 <td className="text-center">
-                  {/*   <Button variant="danger" title="Unblock this user">
-                      <FontAwesomeIcon icon={faBan} />
-                    </Button> */}
-
-                  <Button
-                    variant="dark"
-                    title="Block this user"
-                    onClick={() => handleBlock("block")}
-                  >
-                    <FontAwesomeIcon icon={faUserSlash} />
-                  </Button>
+                  {item?.status === "blocked" ? (
+                    <button
+                      className="m-0 p-0 border-0 text-danger"
+                      title="Unblock this user"
+                    >
+                      <FontAwesomeIcon
+                        onClick={(e) => handleBlock(e, "unblock")}
+                        icon={faUnlock}
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      className="m-0 p-0 border-0"
+                      title="Block this user"
+                    >
+                      <FontAwesomeIcon
+                        onClick={(e) => handleBlock(e, "block")}
+                        icon={faLock}
+                      />
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}

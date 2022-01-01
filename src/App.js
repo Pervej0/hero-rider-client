@@ -14,6 +14,7 @@ import Users from "./Component/Dashboard/Users/Users";
 import MakeAdmin from "./Component/Dashboard/MakeAdmin/MakeAdmin";
 import CheckOut from "./Component/CheckOut/CheckOut";
 import AdminRoute from "./Component/AdminRoute/AdminRoute";
+import Footer from "./Component/Shared/Footer/Footer";
 
 function App() {
   return (
@@ -106,31 +107,8 @@ function App() {
             />
             <Route path="/dashboard/checkout/:id" element={<CheckOut />} />
           </Route>
-          {/* <Route
-            path="/dashboard"
-            element={
-              <AdminRoute>
-                <Dashboard />
-              </AdminRoute>
-            }
-          ></Route>
-          <Route
-            path="/dashboard/users"
-            element={
-              <AdminRoute>
-                <Users />
-              </AdminRoute>
-            }
-          ></Route>
-          <Route
-            path="/dashboard/makeAdmin"
-            element={
-              <AdminRoute>
-                <MakeAdmin />
-              </AdminRoute>
-            }
-          ></Route> */}
         </Routes>
+        <Footer />
       </BrowserRouter>
     </AuthProvider>
   );
