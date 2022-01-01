@@ -12,12 +12,13 @@ const Users = () => {
   // search input-
   const handleSearch = () => {
     const filteredItem = users.filter((item) => {
+      const name = item.fullName.toLowerCase();
       if (
-        item.fullName.toLowerCase() === searchData.toLowerCase() ||
+        name === searchData.toLowerCase() ||
         item.fullName.includes(searchData)
       ) {
         return (
-          item.fullName.toLowerCase() === searchData.toLowerCase() ||
+          name === searchData.toLowerCase() ||
           item.fullName.includes(searchData)
         );
       }
@@ -101,7 +102,7 @@ const Users = () => {
   };
 
   return (
-    <section style={{ minHeight: "80vh" }} className="mx-2">
+    <section style={{ minHeight: "80vh" }} className="mx-2 mb-5">
       <Container>
         <div className="d-flex justify-content-between align-items-center">
           <div className="mt-5 mb-2">

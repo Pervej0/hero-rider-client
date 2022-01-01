@@ -19,7 +19,10 @@ const CheckoutForm = ({ paymentDetails }) => {
       body: JSON.stringify(paymentDetails),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
+      .then((data) => {
+        console.log(data);
+        setClientSecret(data.clientSecret);
+      })
       .catch((error) => console.log(error));
   }, [paymentDetails]);
 
@@ -44,9 +47,9 @@ const CheckoutForm = ({ paymentDetails }) => {
     } else {
       console.log("[PaymentMethod]", paymentMethod);
     }
-
+    setErrors("");
     setIsprocesing(false);
-    console.log("hello", clientSecret);
+
     // intent payment---
     const { paymentIntent, error: intentError } =
       await stripe.confirmCardPayment(clientSecret, {
@@ -65,6 +68,7 @@ const CheckoutForm = ({ paymentDetails }) => {
       console.log(paymentIntent);
       setSuccess("Your payment proceed successfully");
     }
+    console.log(clientSecret);
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -84,13 +88,13 @@ const CheckoutForm = ({ paymentDetails }) => {
           },
         }}
       />
-      <p className="text-danger fw-bold mt-3">{errors}</p>
-      <p className="text-success fw-bold mt-3">{success}</p>
+      <p className="text-danger fw-bold">{errors}</p>
+      <p className="text-success text-sm">{success}</p>
       {isProcessing ? (
         <Spinner animation="border" />
       ) : (
         <button
-          className="border-0 px-5 py-1 rounded d-inline-block mt-2 text-white bg-dark"
+          className="fw-bold text-white bg-dark text-uppercase border-0 px-4 py-1 rounded"
           type="submit"
           disabled={!stripe}
         >

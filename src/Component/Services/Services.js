@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, ListGroup } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Services = () => {
   const [data, setData] = useState([]);

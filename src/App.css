@@ -8,10 +8,14 @@
 }
 
 .hero-section {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),
     url(https://i.ibb.co/4pk7Ppc/lino-lakes-C2-Sz-Uyg3-PPQ-unsplash.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
