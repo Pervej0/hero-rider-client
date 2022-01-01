@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <Navbar bg="light" expand="lg">
       <Container className="border-bottom-1">
-        <Link to="/" className="navbar-brand italic">
+        <Link to="/" className="navbar-brand italic fw-bold">
           HeroRider
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -88,11 +88,25 @@ function App() {
                 </section>
               }
             />
-            <Route path="/dashboard/users" element={<Users />} />
-            <Route path="/dashboard/makeAdmin" element={<MakeAdmin />} />
-            <Route path="/dashboard/checkout" element={<CheckOut />} />
+            <Route
+              path="/dashboard/users"
+              element={
+                <AdminRoute>
+                  <Users />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/dashboard/makeAdmin"
+              element={
+                <AdminRoute>
+                  <MakeAdmin />
+                </AdminRoute>
+              }
+            />
+            <Route path="/dashboard/checkout/:id" element={<CheckOut />} />
           </Route>
-          <Route
+          {/* <Route
             path="/dashboard"
             element={
               <AdminRoute>
@@ -115,7 +129,7 @@ function App() {
                 <MakeAdmin />
               </AdminRoute>
             }
-          ></Route>
+          ></Route> */}
         </Routes>
       </BrowserRouter>
     </AuthProvider>

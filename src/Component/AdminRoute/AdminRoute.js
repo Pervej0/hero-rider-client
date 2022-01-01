@@ -3,9 +3,8 @@ import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 function AdminRoute({ children }) {
-  const { user, isLoading, isAdmin } = useAuth();
+  const { isLoading, isAdmin } = useAuth();
   const location = useLocation();
-  console.log(isLoading);
   return (
     <>
       {isLoading ? (

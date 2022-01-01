@@ -87,9 +87,10 @@ const useFirebase = () => {
 
   // check user admin or not
   useEffect(() => {
-    fetch(`https://guarded-oasis-87785.herokuapp.com/admin/${user?.email}`)
+    fetch(`http://localhost:5000/admin/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setIsAdmin(data.admin);
       });
   }, [user]);
