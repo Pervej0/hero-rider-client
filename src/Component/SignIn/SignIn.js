@@ -1,13 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 const SignIn = () => {
   const { register, handleSubmit } = useForm();
   const { manuallySignIn, errors } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const onSubmit = (data) => {
-    manuallySignIn(data.email, data.password);
+    manuallySignIn(data.email, data.password, location, navigate);
   };
 
   return (

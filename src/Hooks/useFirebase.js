@@ -41,14 +41,15 @@ const useFirebase = () => {
   };
 
   // user manually sign in-
-  const manuallySignIn = (email, password, from, history) => {
+  const manuallySignIn = (email, password, location, navigate) => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         const userInfo = result.user;
         setuser(userInfo);
         setIsLoading(false);
-        // history.push(from);
+        const destination = location?.state?.from || "/";
+        navigate(destination);
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -92,7 +93,6 @@ const useFirebase = () => {
         setIsAdmin(data.admin);
       });
   }, [user]);
-
   return {
     user,
     isLoading,

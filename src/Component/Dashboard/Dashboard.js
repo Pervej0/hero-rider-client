@@ -4,6 +4,7 @@ import React from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link, NavLink, Route, Routes } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   const { user, logOut } = useAuth();
@@ -25,22 +26,26 @@ const Dashboard = () => {
               alt="React Bootstrap logo"
             />
             <h4 className="mx-2">{user.displayName}</h4>
-            <button type="button" className="border-0" onClick={logOut}>
-              <FontAwesomeIcon icon={faSignOutAlt} size="2x" title="sign out" />
-            </button>
           </div>
         </Container>
       </Navbar>
       <div className="row">
-        <div className="my-2 text-center border col-2">
-          <Link to="/dashboard/users" className="nav-link text-uppercase">
-            Users
-          </Link>
-          <Link to="/dashboard/makeAdmin" className="nav-link text-uppercase">
-            Make Admin
-          </Link>
+        <div className="text-center border col-2">
+          <div>
+            <Link to="/dashboard" className="nav-link text-uppercase h5 my-3">
+              Dashboard
+            </Link>
+            <Link to="/dashboard/users" className="nav-link text-uppercase">
+              Users
+            </Link>
+            <Link to="/dashboard/makeAdmin" className="nav-link text-uppercase">
+              Make Admin
+            </Link>
+          </div>
         </div>
-        <div className="col-10">1</div>
+        <div className="col-10">
+          <Outlet />
+        </div>
       </div>
     </>
   );

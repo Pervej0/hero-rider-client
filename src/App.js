@@ -12,6 +12,8 @@ import SignIn from "./Component/SignIn/SignIn";
 import PrivateRoute from "./Component/PrivatRouter/PrivateRouter";
 import Users from "./Component/Dashboard/Users/Users";
 import MakeAdmin from "./Component/Dashboard/MakeAdmin/MakeAdmin";
+import CheckOut from "./Component/CheckOut/CheckOut";
+import AdminRoute from "./Component/AdminRoute/AdminRoute";
 
 function App() {
   return (
@@ -71,15 +73,49 @@ function App() {
             }
           />
           <Route
-            path="dashboard"
+            path="/dashboard"
             element={
               <PrivateRoute>
                 <Dashboard />
               </PrivateRoute>
             }
-          />
-          <Route path="dashboard/users" element={<Users />} />
-          <Route path="dashboard/makeAdmin" element={<MakeAdmin />} />
+          >
+            <Route
+              path="/dashboard"
+              element={
+                <section style={{ minHeight: "80vh" }}>
+                  <h1 className="text-center mt-5">Welcome to Dashboard</h1>
+                </section>
+              }
+            />
+            <Route path="/dashboard/users" element={<Users />} />
+            <Route path="/dashboard/makeAdmin" element={<MakeAdmin />} />
+            <Route path="/dashboard/checkout" element={<CheckOut />} />
+          </Route>
+          <Route
+            path="/dashboard"
+            element={
+              <AdminRoute>
+                <Dashboard />
+              </AdminRoute>
+            }
+          ></Route>
+          <Route
+            path="/dashboard/users"
+            element={
+              <AdminRoute>
+                <Users />
+              </AdminRoute>
+            }
+          ></Route>
+          <Route
+            path="/dashboard/makeAdmin"
+            element={
+              <AdminRoute>
+                <MakeAdmin />
+              </AdminRoute>
+            }
+          ></Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

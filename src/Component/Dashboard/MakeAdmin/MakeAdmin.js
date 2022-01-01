@@ -17,22 +17,29 @@ const MakeAdmin = () => {
   };
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="email"
-          className="w-50 d-block my-3 py-2"
-          placeholder="Enter email here"
-          {...register("email", { required: true })}
-        />
-        <button
-          type="submit"
-          className="bg-dark text-white border-0 py-2 px-3 rounded"
-        >
-          Add New Admin
-        </button>
-      </form>
-    </div>
+    <section style={{ minHeight: "80vh" }}>
+      <div className="container">
+        <h2 className="text-uppercase text-center mt-5 mb-5">
+          Make a new Admin
+        </h2>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="w-50 mx-auto text-left">
+            <input
+              type="email"
+              className="w-100 d-block my-3 py-2 mx-auto"
+              placeholder="Enter email here"
+              {...register("email", { required: true })}
+            />
+            <button
+              type="submit"
+              className="bg-dark text-white border-0 py-2 px-3 rounded"
+            >
+              Add New Admin
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
   );
 };
 
