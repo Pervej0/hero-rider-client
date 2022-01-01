@@ -15,9 +15,10 @@ const useFirebase = () => {
   const [user, setuser] = useState(null);
   const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   //   manuallySignUp
-  const manuallySignUp = (email, pass, name, profile) => {
+  const manuallySignUp = (email, pass, name, profile, location, navigate) => {
     createUserWithEmailAndPassword(auth, email, pass).then((result) => {
       const userInfo = result.user;
       updateProfile(auth.currentUser, {
@@ -26,7 +27,10 @@ const useFirebase = () => {
           ? profile
           : "https://i.ibb.co/SJQMSqC/profile.png",
       })
-        .then(() => {})
+        .then(() => {
+          const destination = location?.state?.from || "/";
+          navigate(destination);
+        })
         .catch((error) => {
           const errorMessage = error.message;
           setErrors(errorMessage);
@@ -80,10 +84,20 @@ const useFirebase = () => {
       });
   };
 
+  // check user admin or not
+  useEffect(() => {
+    fetch(`https://guarded-oasis-87785.herokuapp.com/admin/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setIsAdmin(data.admin);
+      });
+  }, [user]);
+
   return {
     user,
     isLoading,
     errors,
+    isAdmin,
     manuallySignUp,
     manuallySignIn,
     logOut,

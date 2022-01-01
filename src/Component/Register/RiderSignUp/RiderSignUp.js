@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
 import useFirebase from "../../../Hooks/useFirebase";
 
 const RiderSignUp = () => {
   const { register, handleSubmit, reset } = useForm();
   const { manuallySignUp } = useFirebase();
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
   // const [isLoaded, setIsLoaded] = useState(false);
 
   const onSubmit = (data) => {
@@ -31,7 +34,9 @@ const RiderSignUp = () => {
       data.email,
       data.confirmPassWord,
       data.fullName,
-      data.profileUrl
+      data.profileUrl,
+      location,
+      navigate
     );
     reset();
   };

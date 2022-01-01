@@ -17,6 +17,9 @@ const Header = () => {
             <NavLink to="/" className="nav-link font-weight-bold">
               Home
             </NavLink>
+            <NavLink to="/services" className="nav-link font-weight-bold">
+              Services
+            </NavLink>
 
             {!user ? (
               <>
